@@ -15,22 +15,23 @@ function createBot() {
   bot.on('spawn', () => {
     console.log('Bot da vao sanh cho!');
     
-    // 1. Tự động đăng nhập mật khẩu sau 3 giây khi vừa vào sảnh
+    // 1. Tự động đăng nhập mật khẩu sau 3 giây
     setTimeout(() => { 
       bot.chat('/login nghia1111'); 
       console.log('Da go lenh login.');
     }, 3000); 
 
-    // 2. Đợi han 15 giây (vượt qua mức 10s cua server) rồi mới gõ /menu
+    // 2. Thử gõ lệnh /lobby hoặc /menu để mở rương sau 15 giây
     setTimeout(() => { 
-      console.log('Da qua 10s cho, dang mo menu server...');
-      bot.chat('/menu'); 
-    }, 18000); // 3s đăng nhập + 15s chờ = 18 giây tổng cộng
+      console.log('Dang mo menu bang cach su dung vat pham...');
+      // Giả lập hành động chuột phải khi đang cầm đồng hồ ở sảnh chờ
+      bot.activateItem(); 
+    }, 15000);
   });
 
   // 3. Bộ lọc quét giao diện rương để click tự động vào KingSMP
   bot.on('windowOpen', async (window) => {
-    console.log('Giao dien menu da mo!');
+    console.log('Giao dien menu da mo thanh cong!');
     const slots = window.slots;
     let slotGoc = -1;
     
@@ -53,8 +54,6 @@ function createBot() {
         } 
         catch (err) { console.log('Loi click menu: ', err); }
       }, 2000);
-    } else {
-      console.log('Khong tim thay nut KingSMP trong menu.');
     }
   });
 
@@ -70,7 +69,7 @@ function createBot() {
 
   bot.on('end', () => { 
     console.log('Mat ket noi, dang tien hanh vao lai...');
-    setTimeout(createBot, 10000); // Thử kết nối lại sau 10 giây
+    setTimeout(createBot, 10000); 
   }); 
 }
 createBot();
