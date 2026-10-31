@@ -7,25 +7,33 @@ app.listen(process.env.PORT || 3000);
 
 function createBot() {
   const bot = mineflayer.createBot({
-    host: 'kingmc.vn', // IP chuẩn của KingMC
-    username: 'Nghz', // Tên acc Minecraft của bạn
-    version: '1.21.11' // <-- Đã sửa thành đầu số tương thích chuẩn giao thức 1.21.11
+    host: 'kingmc.vn',
+    username: 'Nghz',
+    version: '1.21.11'
   });
 
   bot.on('spawn', () => {
     console.log('Bot da vao sanh cho!');
     
-    // 1. Tự động đăng nhập mật khẩu sau 2 giây khi vừa vào sảnh
+    // 1. Tự động đăng nhập mật khẩu sau 2 giây
     setTimeout(() => { 
       bot.chat('/login nghia1111'); 
       console.log('Da go lenh login.');
     }, 2000); 
 
-    // 2. Đợi thêm 6 giây (vượt qua mức 5s của server) rồi dùng chuột phải mở Menu từ đồng hồ
+    // 2. Đợi qua 5s quy định, tự chuyển sang ô số 5 trên hotbar và bấm chuột phải mở Menu
     setTimeout(() => { 
-      console.log('Da du 5s cho sau login. Dang mo menu...');
-      bot.activateItem(); // Bấm chuột phải đồng hồ để mở menu rương
-    }, 8000);
+      console.log('Da qua 5s cho. Dang chuyen sang o hotbar so 5...');
+      
+      // Trong code, các ô hotbar đếm từ 0 đến 8 (Ô 1 là số 0, ô 5 là số 4)
+      bot.setQuickBarSlot(4); 
+      
+      setTimeout(() => {
+        console.log('Dang bam chuot phai dong ho...');
+        bot.activateItem(false); // Giả lập bấm chuột phải tay chính để mở menu rương
+      }, 1000);
+
+    }, 8000); // Tổng thời gian chờ 8 giây sau khi vào sảnh
   });
 
   // 3. Bộ lọc quét giao diện rương để click tự động vào KingSMP
@@ -49,7 +57,7 @@ function createBot() {
       setTimeout(async () => {
         try { 
           await bot.clickWindow(slotGoc, 0, 0); 
-          console.log('Da click vao nut KingSMP thanh cong!'); 
+          console.log('Da click vao nut KingSMP thanh cong! Bot da vao game.'); 
         } 
         catch (err) { console.log('Loi click menu: ', err); }
       }, 2000);
