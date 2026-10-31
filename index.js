@@ -9,7 +9,7 @@ function createBot() {
   const bot = mineflayer.createBot({
     host: 'kingmc.vn',
     username: 'Nghz',
-    version: '1.21.1'
+    version: '1.21.11'
   });
 
   bot.on('spawn', () => {
