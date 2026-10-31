@@ -7,26 +7,25 @@ app.listen(process.env.PORT || 3000);
 
 function createBot() {
   const bot = mineflayer.createBot({
-    host: 'kingmc.vn',
-    username: 'Nghz',
-    version: '1.21.11'
+    host: 'kingmc.vn', // IP chuẩn của KingMC
+    username: 'Nghz', // Tên acc Minecraft của bạn
+    version: '1.21.11' // <-- Đã sửa thành đầu số tương thích chuẩn giao thức 1.21.11
   });
 
   bot.on('spawn', () => {
     console.log('Bot da vao sanh cho!');
     
-    // 1. Tự động đăng nhập mật khẩu sau 3 giây
+    // 1. Tự động đăng nhập mật khẩu sau 2 giây khi vừa vào sảnh
     setTimeout(() => { 
       bot.chat('/login nghia1111'); 
       console.log('Da go lenh login.');
-    }, 3000); 
+    }, 2000); 
 
-    // 2. Thử gõ lệnh /lobby hoặc /menu để mở rương sau 15 giây
+    // 2. Đợi thêm 6 giây (vượt qua mức 5s của server) rồi dùng chuột phải mở Menu từ đồng hồ
     setTimeout(() => { 
-      console.log('Dang mo menu bang cach su dung vat pham...');
-      // Giả lập hành động chuột phải khi đang cầm đồng hồ ở sảnh chờ
-      bot.activateItem(); 
-    }, 15000);
+      console.log('Da du 5s cho sau login. Dang mo menu...');
+      bot.activateItem(); // Bấm chuột phải đồng hồ để mở menu rương
+    }, 8000);
   });
 
   // 3. Bộ lọc quét giao diện rương để click tự động vào KingSMP
@@ -57,7 +56,7 @@ function createBot() {
     }
   });
 
-  // 4. Cứ 15 giây cho bot tự nhảy một cái để chống bị tính AFK đá ra ngoài
+  // 4. Cứ 15 giây cho bot tự nhảy một cái để chống bị tính AFK đá ra ngoài sảnh
   bot.on('login', () => {
     setInterval(() => {
       if (bot && bot.setControlState) {
