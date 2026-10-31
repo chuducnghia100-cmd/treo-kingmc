@@ -7,14 +7,14 @@ app.listen(process.env.PORT || 3000);
 
 function createBot() {
   const bot = mineflayer.createBot({
-    host: 'kingmc.vn', // IP chuẩn của server KingMC
-    username: 'TenAccCuaBan', // <-- BẠN CHỈ CẦN ĐỔI CHỮ NÀY THÀNH TÊN ACC TRONG GAME CỦA BẠN
-    version: '1.16.5'
+    host: 'kingmc.vn', // IP chuẩn của KingMC
+    username: 'Nghz', // Tên acc Minecraft của bạn
+    version: '1.21.11' // Phiên bản tương thích với 1.21.11 của server
   });
 
   bot.on('spawn', () => {
     console.log('Bot da vao sanh cho!');
-    // Tự động đăng nhập bằng mật khẩu nghia1111 sau 2 giây
+    // Tự động đăng nhập mật khẩu sau 2 giây
     setTimeout(() => { bot.chat('/login nghia1111'); }, 2000); 
     // Tự động mở menu sau 6 giây
     setTimeout(() => { bot.chat('/menu'); }, 6000);
